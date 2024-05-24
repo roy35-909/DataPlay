@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Course,CourseContents,FileField
+from .models import Course,CourseContents,FileField,VideoLinks
 
 # Inline for CourseContents within CourseAdmin
 class CourseContentsInline(admin.TabularInline):
@@ -16,6 +16,6 @@ class CourseAdmin(admin.ModelAdmin):
 
 admin.site.register(FileField)
 
-
+admin.site.register(VideoLinks)
 
 admin.site.register(Course, CourseAdmin)

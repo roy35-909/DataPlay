@@ -29,6 +29,12 @@ class FileField(models.Model):
     def __str__(self):
         return f"File : {os.path.basename(self.files.name)}"
 
+
+class VideoLinks(models.Model):
+    topic_name=models.CharField(null=True,blank=True, max_length=255)
+    link = models.URLField()
+    def __str__(self) -> str:
+        return f'{self.topic_name} ===> id: {self.id}'
 # CourseContents model
 class CourseContents(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -37,6 +43,7 @@ class CourseContents(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     files = models.ManyToManyField(FileField)
+    video_link = models.ManyToManyField(VideoLinks)
     prev_content = models.OneToOneField('self', related_name='next_content_relation', on_delete=models.SET_NULL, blank=True, null=True)
     next_content = models.OneToOneField('self', related_name='prev_content_relation', on_delete=models.SET_NULL, blank=True, null=True)
 
