@@ -6,12 +6,12 @@ import os
 class Course(models.Model):
     instructors = models.ManyToManyField(Instructor)
     course_order = models.PositiveIntegerField(default=0)
-    title = models.CharField(max_length=255)
-    description = models.TextField()
+    title = models.CharField(max_length=255,null=True,blank=True)
+    description = models.TextField(null=True,blank=True)
     learn = models.TextField(null=True,blank=True)
-    requirements = models.TextField(null=True,blank=True, )
+    requirements = models.TextField(null=True,blank=True)
     
-    image = models.ImageField(upload_to="course/thumbnail")
+    image = models.ImageField(upload_to="course/thumbnail",null=True,blank=True)
     course_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
     content_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
     course_price_discounted = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
@@ -42,10 +42,21 @@ class CourseContents(models.Model):
     content_order = models.PositiveIntegerField()
     title = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
-    files = models.ManyToManyField(FileField)
-    video_link = models.ManyToManyField(VideoLinks)
-    prev_content = models.OneToOneField('self', related_name='next_content_relation', on_delete=models.SET_NULL, blank=True, null=True)
-    next_content = models.OneToOneField('self', related_name='prev_content_relation', on_delete=models.SET_NULL, blank=True, null=True)
+    files = models.ManyToManyField(FileField,null=True,blank=True)
+    video_link = models.ManyToManyField(VideoLinks,null=True,blank=True)
 
+
+    class Meta:
+        ordering = ['content_order']
+
+
+
+
+
+    def save(self, *args, **kwargs):
+        desired_order = self.content_order
+        CourseContents.objects.filter(content_order__gte=desired_order).update(content_order=models.F('content_order') + 1)
+        super(CourseContents, self).save(*args, **kwargs)
+        
     def __str__(self):
         return f"{self.course}: Content {self.content_order}"

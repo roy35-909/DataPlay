@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.db.models import QuerySet
-from user.models import Instructor,User,Mentor
+from user.models import Instructor,User,Mentor,Students
 
 
 
@@ -22,3 +22,10 @@ class MentorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mentor
         fields = '__all__'
+
+class StudentSerializer(serializers.ModelSerializer):
+    user = UserProfileSerializer()
+    class Meta:
+        model = Students
+        fields = '__all__'
+
