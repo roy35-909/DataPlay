@@ -14,8 +14,10 @@ class CourseContentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if self.instance.pk:
             self.fields['files'].queryset = self.instance.files.all()
+            self.fields['video_link'].queryset = self.instance.files.all()
         else:
             self.fields['files'].queryset = FileField.objects.none()
+            self.fields['video_link'].queryset = FileField.objects.none()
 
 
 # Inline for CourseContents within CourseAdmin
