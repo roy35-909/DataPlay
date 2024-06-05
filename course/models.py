@@ -11,7 +11,7 @@ class Course(models.Model):
     learn = models.TextField(null=True,blank=True)
     requirements = models.TextField(null=True,blank=True)
     
-    image = models.ImageField(upload_to="course/thumbnail",null=True,blank=True)
+    image = models.FileField(upload_to="course/thumbnail",null=True,blank=True)
     course_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
     content_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
     course_price_discounted = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
