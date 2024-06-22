@@ -1,6 +1,10 @@
-from django.db import models
-from user.models import Instructor
 import os
+
+from django.db import models
+
+from user.models import Instructor
+
+
 # Create your models here.
 # Course model
 class Course(models.Model):

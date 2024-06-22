@@ -1,9 +1,8 @@
+from django import forms
 from django.contrib import admin
 
-from .models import Course,CourseContents,FileField,VideoLinks
+from .models import Course, CourseContents, FileField, VideoLinks
 
-
-from django import forms
 
 class CourseContentForm(forms.ModelForm):
     class Meta:
@@ -12,12 +11,9 @@ class CourseContentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if self.instance.pk:
-            self.fields['files'].queryset = self.instance.files.all()
-            self.fields['video_link'].queryset = self.instance.video_link.all()
-        else:
-            self.fields['files'].queryset = FileField.objects.none()
-            self.fields['video_link'].queryset = VideoLinks.objects.none()
+
+        self.fields['files'].queryset = FileField.objects.all()
+        self.fields['video_link'].queryset = VideoLinks.objects.all()
 
 
 # Inline for CourseContents within CourseAdmin

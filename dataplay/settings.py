@@ -10,11 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
-import environ
-import pymysql
 import os
 from datetime import timedelta
+from pathlib import Path
+
+import environ
+import pymysql
+
 pymysql.install_as_MySQLdb()
 env = environ.Env()
 environ.Env.read_env()
@@ -105,24 +107,24 @@ WSGI_APPLICATION = 'dataplay.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 
 
         # On Production Please Comment Out this Code
-        'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASS'),
-        'HOST': env('DATABASE_IP'),
-        'PORT': '3306',
-        'OPTIONS' : {
-            'charset' : 'utf8mb4'
-        }
-    },
+        # 'default': {
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': env('DATABASE_NAME'),
+        # 'USER': env('DATABASE_USER'),
+        # 'PASSWORD': env('DATABASE_PASS'),
+        # 'HOST': env('DATABASE_IP'),
+        # 'PORT': '3306',
+        # 'OPTIONS' : {
+        #     'charset' : 'utf8mb4'
+        # }
+    # },
 }
 
 
