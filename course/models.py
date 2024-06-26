@@ -58,5 +58,6 @@ class CourseContents(models.Model):
         CourseContents.objects.filter(content_order__gte=desired_order).update(content_order=models.F('content_order') + 1)
         super(CourseContents, self).save(*args, **kwargs)
         
+
     def __str__(self):
         return f"{self.course}: Content {self.content_order}"

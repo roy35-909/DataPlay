@@ -12,7 +12,7 @@ class Testimonial(models.Model):
     prevrole = models.TextField(null=True,blank=True)
     currorg = models.TextField(null=True,blank=True)
     currrole = models.TextField(null=True, blank=True)
-    linkdin = models.CharField(max_length=100, null=True,blank=True)
+    linkdin = models.URLField(null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
