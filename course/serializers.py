@@ -71,3 +71,11 @@ class CourseSerializerWithAllContent(serializers.ModelSerializer):
 
         ser = CourseContentSerializerForListing(contents, many=True, context = {'request':self.context.get('request')})
         return ser.data
+
+
+
+class CourseContentSerializerForFree(serializers.ModelSerializer):
+
+    class Meta:
+        model =CourseContents
+        fields = ("title","is_free",)
