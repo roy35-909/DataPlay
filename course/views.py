@@ -66,10 +66,12 @@ class RetriveCourseContentAPIView(NewAPIView):
             course_content = CourseContents.objects.get(id=pk)
         except(ObjectDoesNotExist):
             return s_404('Course Content')
-        
-        if self.is_this_user_purched_this_course(request.user,course_content.course):
-            ser = CourseContentSerializer(course_content, context ={'request':request})
+        if course_content.is_free:
+            pass
         else:
-            return Response({"msg":"Please Purchase This Course."}, status=status.HTTP_401_UNAUTHORIZED)
+            if self.is_this_user_purched_this_course(request.user,course_content.course):
+                ser = CourseContentSerializer(course_content, context ={'request':request})
+            else:
+                return Response({"msg":"Please Purchase This Course."}, status=status.HTTP_401_UNAUTHORIZED)
         return s_200(ser)
     
