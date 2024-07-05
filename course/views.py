@@ -51,6 +51,11 @@ class RetriveCourseContentAPIView(NewAPIView):
     permission_classes = []
     serializer_class = CourseContentSerializer
 
+    def is_this_user_purched_this_course(self,user, course):
+
+        x = RegisterCourse.objects.filter(user__id = user.id, course__id=course.id).exists()
+        return x
+
     def get(self, request,pk):
         '''
         Hello,\n
@@ -62,6 +67,9 @@ class RetriveCourseContentAPIView(NewAPIView):
         except(ObjectDoesNotExist):
             return s_404('Course Content')
         
-        ser = CourseContentSerializer(course_content, context ={'request':request})
+        if self.is_this_user_purched_this_course(request.user,course_content.course):
+            ser = CourseContentSerializer(course_content, context ={'request':request})
+        else:
+            return Response({"msg":"Please Purchase This Course."}, status=status.HTTP_401_UNAUTHORIZED)
         return s_200(ser)
     

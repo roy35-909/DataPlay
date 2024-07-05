@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Course,CourseContents,FileField,VideoLinks
+from .models import Course,CourseContents,FileField,VideoLinks,GoogleDriveLinks,RegisterCourse
 from .forms import *
 
 
@@ -31,3 +31,5 @@ admin.site.register(VideoLinks)
 
 admin.site.register(Course, CourseAdmin)
 
+admin.site.register(GoogleDriveLinks)
+admin.site.register(RegisterCourse)

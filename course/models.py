@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import Instructor
+from authentication.models import User
 import os
 # Create your models here.
 # Course model
@@ -22,6 +23,21 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
+
+class RegisterCourse(models.Model):
+    class Meta:
+        verbose_name = "AddStudent"
+        verbose_name_plural = "AddStudents"
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    fee = models.IntegerField(default=0)
+
+    def __str__(self) -> str:
+        return f'Student Email: {self.user.email} Purchased :{self.course.title}'
+
+
+
 # FileField model
 class FileField(models.Model):
     files = models.FileField(upload_to="course/content", max_length=100)
@@ -35,6 +51,13 @@ class VideoLinks(models.Model):
     link = models.URLField()
     def __str__(self) -> str:
         return f'{self.topic_name} ===> id: {self.id}'
+    
+class GoogleDriveLinks(models.Model):
+    topic_name=models.CharField(null=True,blank=True, max_length=255)
+    link = models.URLField()
+    def __str__(self) -> str:
+        return f'{self.topic_name} ===> id: {self.id}'
+
 # CourseContents model
 class CourseContents(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -44,7 +67,7 @@ class CourseContents(models.Model):
     description = models.TextField(null=True, blank=True)
     files = models.ManyToManyField(FileField,null=True,blank=True)
     video_link = models.ManyToManyField(VideoLinks,null=True,blank=True)
-
+    google_drive_link = models.ManyToManyField(GoogleDriveLinks, null=True, blank=True)
 
     class Meta:
         ordering = ['content_order']

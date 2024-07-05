@@ -27,5 +27,6 @@ class CourseForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(CourseForm, self).__init__(*args, **kwargs)
+        self.fields['image'].required = True
         if self.instance.pk:
             self.fields['total_content'].initial = CourseContents.objects.filter(course = self.instance).count()
