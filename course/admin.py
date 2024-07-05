@@ -1,9 +1,23 @@
+from django import forms
 from django.contrib import admin
 
 from .models import Course,CourseContents,FileField,VideoLinks,GoogleDriveLinks,RegisterCourse
 from .forms import *
 
 
+from .models import Course, CourseContents, FileField, VideoLinks
+
+
+class CourseContentForm(forms.ModelForm):
+    class Meta:
+        model = CourseContents
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['files'].queryset = FileField.objects.all()
+        self.fields['video_link'].queryset = VideoLinks.objects.all()
 
 
 # Inline for CourseContents within CourseAdmin

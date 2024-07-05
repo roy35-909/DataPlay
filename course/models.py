@@ -1,7 +1,16 @@
+import os
+
 from django.db import models
+
 from user.models import Instructor
 from authentication.models import User
 import os
+
+from django.db import models
+
+from user.models import Instructor
+
+
 # Create your models here.
 # Course model
 class Course(models.Model):
