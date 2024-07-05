@@ -67,7 +67,7 @@ class RetriveCourseContentAPIView(NewAPIView):
         except(ObjectDoesNotExist):
             return s_404('Course Content')
         if course_content.is_free:
-            pass
+            ser = CourseContentSerializer(course_content, context ={'request':request})
         else:
             if self.is_this_user_purched_this_course(request.user,course_content.course):
                 ser = CourseContentSerializer(course_content, context ={'request':request})
