@@ -75,4 +75,4 @@ class RetriveCourseContentAPIView(NewAPIView):
                 ser = CourseContentSerializerForFree(course_content, context ={'request':request})
                 return s_200(ser)
         return s_200(ser)
-    
+

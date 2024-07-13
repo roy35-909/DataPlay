@@ -212,7 +212,8 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
 ]
 
-REDIRECT_URI = ['https://dataplaynew-fronten-git-d1b1c7-nishant-guptas-projects-241823fa.vercel.app/googleoAuth/','https://www.dataplay.co.in/googleoAuth/','http://localhost:8000/googleoAuth/','http://localhost:3000/googleoAuth/','http://localhost:8000']
+REDIRECT_URI = ['https://dataplaynew-fronten-git-d1b1c7-nishant-guptas-projects-241823fa.vercel.app/googleoAuth/','https://www.dataplay.co.in/googleoAuth/','http://localhost:8000/googleoAuth/',
+                'http://localhost:3000/googleoAuth/','http://localhost:8000','https://dataplaynew-frontend-3olobyonk-nishant-guptas-projects-241823fa.vercel.app/googleoAuth/']
 DJOSER = {
     'SEND_ACTIVATION_EMAIL': False,
     'SERIALIZERS': {

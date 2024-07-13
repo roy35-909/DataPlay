@@ -122,3 +122,5 @@ class GetStudentProfileAPIView(NewAPIView):
 
         ser = StudentSerializer(userprofile, context = {'request':request})
         return s_200(ser)
+    
+
