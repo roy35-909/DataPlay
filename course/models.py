@@ -16,12 +16,12 @@ from user.models import Instructor
 class Course(models.Model):
     instructors = models.ManyToManyField(Instructor)
     course_order = models.PositiveIntegerField(default=0)
-    title = models.CharField(max_length=255,null=True,blank=True)
-    description = models.TextField(null=True,blank=True)
-    learn = models.TextField(null=True,blank=True)
-    requirements = models.TextField(null=True,blank=True)
+    title = models.CharField(max_length=255,null=True,blank=False)
+    description = models.TextField(null=True,blank=False)
+    learn = models.TextField(null=True,blank=False)
+    requirements = models.TextField(null=True,blank=False)
     
-    image = models.FileField(upload_to="course/thumbnail",null=True,blank=True)
+    image = models.FileField(upload_to="course/thumbnail",null=True,blank=False)
     course_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
     content_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
     course_price_discounted = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
@@ -56,13 +56,15 @@ class FileField(models.Model):
 
 
 class VideoLinks(models.Model):
-    topic_name=models.CharField(null=True,blank=True, max_length=255)
+    topic_name=models.CharField(null=True,blank=False, max_length=255)
+    photo = models.FileField(upload_to="course/thumbnail/videothumbnail",null=True,blank=True)
     link = models.URLField()
     def __str__(self) -> str:
         return f'{self.topic_name} ===> id: {self.id}'
     
 class GoogleDriveLinks(models.Model):
-    topic_name=models.CharField(null=True,blank=True, max_length=255)
+    topic_name=models.CharField(null=True,blank=False, max_length=255)
+    photo = models.FileField(upload_to="course/thumbnail/filesthumbnail",null=True,blank=True)
     link = models.URLField()
     def __str__(self) -> str:
         return f'{self.topic_name} ===> id: {self.id}'
@@ -73,7 +75,7 @@ class CourseContents(models.Model):
     is_free = models.BooleanField(default=False)
     content_order = models.PositiveIntegerField()
     title = models.CharField(max_length=50)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=False)
     files = models.ManyToManyField(FileField,null=True,blank=True)
     video_link = models.ManyToManyField(VideoLinks,null=True,blank=True)
     google_drive_link = models.ManyToManyField(GoogleDriveLinks, null=True, blank=True)

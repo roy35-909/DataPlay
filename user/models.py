@@ -7,8 +7,8 @@ from authentication.models import User
 class Instructor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
-    bio = models.TextField(null=True,blank=True)
-    Designation  = models.TextField(null=True,blank=True)
+    bio = models.TextField(null=True,blank=False)
+    Designation  = models.TextField(null=True,blank=False)
     linkedin = models.URLField(max_length=100, null=True,blank=True)
     profile_pic = models.FileField(default="default_profile.jpg", upload_to="profiles/instractor")
 
