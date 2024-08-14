@@ -31,6 +31,7 @@ class RetriveCourseAPIView(NewAPIView):
     serializer_class = CourseSerializerWithAllContent
 
 
+
     def get(self, request,pk):
         '''
         Hello,\n

@@ -43,10 +43,12 @@ class VideoLinkSerializer(serializers.ModelSerializer):
         exclude = ('id',)
 
 class CourseContentSerializerForListing(serializers.ModelSerializer):
-
+    
     class Meta:
         model =CourseContents
-        fields = ('id','is_free','title',)
+        fields = ('id','is_free','title','is_purched')
+    
+
 
 class CourseContentSerializer(serializers.ModelSerializer):
     files = FileFieldSerializer(many=True)
@@ -60,6 +62,7 @@ class CourseContentSerializer(serializers.ModelSerializer):
 class CourseSerializerWithAllContent(serializers.ModelSerializer):
     contents = serializers.SerializerMethodField()
     instructors = InstructorSerializer(many=True)
+    is_purched = serializers.SerializerMethodField()
     class Meta:
         model = Course
         fields = '__all__'
@@ -71,6 +74,12 @@ class CourseSerializerWithAllContent(serializers.ModelSerializer):
 
         ser = CourseContentSerializerForListing(contents, many=True, context = {'request':self.context.get('request')})
         return ser.data
+    
+    def get_is_purched(self,instance):
+        user = self.context.get('request')
+        if user is None:
+            return False
+        return is_this_user_purched_this_course(user=user.user, course=instance)
 
 
 
