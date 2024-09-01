@@ -46,7 +46,7 @@ class CourseContentSerializerForListing(serializers.ModelSerializer):
     
     class Meta:
         model =CourseContents
-        fields = ('id','is_free','title','is_purched')
+        fields = ('id','is_free','title')
     
 
 
