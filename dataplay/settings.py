@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'user',
     'course',
     'testimonial',
+    'gallery',
 ]
 
 REST_FRAMEWORK = {

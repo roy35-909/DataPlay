@@ -27,6 +27,7 @@ urlpatterns = [
     path('testimonial/', include('testimonial.urls')),
     path('course/', include('course.urls')),
     path('user/', include('user.urls')),
+    path('gallery/', include('gallery.urls')),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "",

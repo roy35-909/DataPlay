@@ -49,6 +49,7 @@ class RegisterCourse(models.Model):
 
 # FileField model
 class FileField(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=False)
     files = models.FileField(upload_to="course/content", max_length=100)
 
     def __str__(self):

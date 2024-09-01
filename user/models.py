@@ -11,7 +11,7 @@ class Instructor(models.Model):
     Designation  = models.TextField(null=True,blank=False)
     linkedin = models.URLField(max_length=100, null=True,blank=True)
     profile_pic = models.FileField(default="default_profile.jpg", upload_to="profiles/instractor")
-
+    education = models.CharField(max_length=255, null=True, blank=False)
     def __str__(self):
         return self.user.email
     
@@ -23,7 +23,7 @@ class Mentor(models.Model):
     Designation  = models.TextField(null=True,blank=True)
     linkedin = models.URLField(max_length=100, null=True,blank=True)
     profile_pic = models.FileField(default="default_profile.jpg", upload_to="profiles/mentor")
-
+    education = models.CharField(max_length=255, null=True, blank=False)
     def __str__(self):
         return self.user.email
     
