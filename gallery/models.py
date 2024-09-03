@@ -2,6 +2,7 @@ from django.db import models
 from course.models import Course
 
 class WorkShopGallery(models.Model):
+    event_name = models.CharField(max_length=255, null=True, blank=False)
     image = models.FileField(blank=False, upload_to='workshopgallery')
     date = models.DateTimeField(auto_now_add=True)
     event_date = models.DateField(null=True, blank=False)
