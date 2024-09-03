@@ -4,6 +4,7 @@ from course.models import Course
 class WorkShopGallery(models.Model):
     image = models.FileField(blank=False, upload_to='workshopgallery')
     date = models.DateTimeField(auto_now_add=True)
+    event_date = models.DateField(null=True, blank=False)
     updated_at = models.DateTimeField(auto_now=True)
     venue = models.CharField(max_length=255)
 
@@ -14,6 +15,7 @@ class WorkShopGallery(models.Model):
 class CourseFeedback(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     photo = models.FileField(blank=False, upload_to='FeedBackPhoto')
+    company_logo = models.FileField(null=True,blank=False, upload_to='FeedBackPhoto/CompanyLogo')
     name = models.CharField(max_length=255)
     designation = models.CharField(max_length=255)
     linkedin = models.URLField()

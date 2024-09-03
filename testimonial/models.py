@@ -14,7 +14,7 @@ class Testimonial(models.Model):
     currrole = models.TextField(null=True, blank=False)
     linkdin = models.URLField(null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=False)
-    video_testimonial_link = models.URLField(null=True, blank=False)
+    video_testimonial_link = models.URLField(null=True, blank=True)
     def __str__(self):
         return self.author
     
