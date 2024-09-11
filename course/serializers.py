@@ -70,7 +70,7 @@ class CourseSerializerWithAllContent(serializers.ModelSerializer):
     def get_contents(self,instance):
         user = self.context.get('request')
 
-        contents = CourseContents.objects.filter(course=instance).order_by('content_order')
+        contents = CourseContents.objects.filter(course=instance, delete_status = False).order_by('content_order')
 
         ser = CourseContentSerializerForListing(contents, many=True, context = {'request':self.context.get('request')})
         return ser.data

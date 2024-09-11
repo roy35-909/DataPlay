@@ -28,7 +28,13 @@ class Course(models.Model):
     content_price_discounted = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=2)
     course_duration = models.IntegerField(default=10)
     course_percentage = models.IntegerField(default=10)
-
+    delete_status = models.BooleanField(default=False)
+    def delete(self, *args, **kwargs):
+        if self.delete_status:
+            super().delete(*args,*kwargs)
+        else:
+            self.delete_status = True
+            self.save()
     def __str__(self):
         return self.title
 
@@ -80,7 +86,7 @@ class CourseContents(models.Model):
     files = models.ManyToManyField(FileField,null=True,blank=True)
     video_link = models.ManyToManyField(VideoLinks,null=True,blank=True)
     google_drive_link = models.ManyToManyField(GoogleDriveLinks, null=True, blank=True)
-
+    delete_status = models.BooleanField(default=False)
     class Meta:
         ordering = ['content_order']
 
@@ -93,6 +99,11 @@ class CourseContents(models.Model):
         CourseContents.objects.filter(content_order__gte=desired_order).update(content_order=models.F('content_order') + 1)
         super(CourseContents, self).save(*args, **kwargs)
         
-
+    def delete(self, *args, **kwargs):
+        if self.delete_status:
+            super().delete(*args,*kwargs)
+        else:
+            self.delete_status = True
+            self.save()
     def __str__(self):
         return f"{self.course}: Content {self.content_order}"

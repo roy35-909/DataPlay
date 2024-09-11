@@ -20,7 +20,7 @@ class CourseAPIView(NewAPIView):
         <b>THIS API IS FOR GET ALL Course LIST...</b>\n
         THANK YOU .\n
         '''
-        courses = Course.objects.all().order_by('course_order')
+        courses = Course.objects.filter(delete_status = False).order_by('course_order')
         ser = CourseSerializer(courses,many=True, context ={'request':request})
         return s_200(ser)
 
@@ -39,7 +39,7 @@ class RetriveCourseAPIView(NewAPIView):
         THANK YOU .\n
         '''
         try:
-            course = Course.objects.get(id=pk)
+            course = Course.objects.get(id=pk, delete_status = False)
         except(ObjectDoesNotExist):
             return s_404('course')
         
@@ -64,7 +64,7 @@ class RetriveCourseContentAPIView(NewAPIView):
         THANK YOU .\n
         '''
         try:
-            course_content = CourseContents.objects.get(id=pk)
+            course_content = CourseContents.objects.get(id=pk,delete_status = False)
         except(ObjectDoesNotExist):
             return s_404('Course Content')
         if course_content.is_free:
