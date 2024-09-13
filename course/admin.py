@@ -1,9 +1,11 @@
 from django import forms
 from django.contrib import admin
+from django.db.models.query import QuerySet
+from django.http import HttpRequest
 
 from .models import Course,CourseContents,FileField,VideoLinks,GoogleDriveLinks,RegisterCourse
 from .forms import *
-
+from django.contrib.admin.actions import delete_selected as delete_selected_
 
 from .models import Course, CourseContents, FileField, VideoLinks
 
@@ -27,8 +29,22 @@ class CourseContentsInline(admin.TabularInline):
     extra = 1
 
 
+
+class ModelAdmin2(admin.ModelAdmin):
+
+    def delete_queryset(self, request: HttpRequest, queryset: QuerySet) -> None:
+        for i in queryset:
+            if i.delete_status == True:
+                super().delete_queryset(request, queryset)
+            else:   
+                i.delete_status = True
+                i.save()
+
+        
+
+
 # Custom admin class for the Course model
-class CourseAdmin(admin.ModelAdmin):
+class CourseAdmin(ModelAdmin2):
     inlines = [CourseContentsInline]
     list_display = ('title', 'description', 'course_price', 'content_price','total_content')
     form = CourseForm
