@@ -32,8 +32,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
+if env('DEBUG') == 'True':
+    DEBUG = True
+else:
+    DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 
@@ -107,26 +110,27 @@ WSGI_APPLICATION = 'dataplay.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-
-
-        # On Production Please Comment Out this Code
-    #     'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': env('DATABASE_NAME'),
-    #     'USER': env('DATABASE_USER'),
-    #     'PASSWORD': env('DATABASE_PASS'),
-    #     'HOST': env('DATABASE_IP'),
-    #     'PORT': '3306',
-    #     'OPTIONS' : {
-    #         'charset' : 'utf8mb4'
-    #     }
-    # },
-}
+else:
+    DATABASES = {
+            'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': env('DATABASE_NAME'),
+            'USER': env('DATABASE_USER'),
+            'PASSWORD': env('DATABASE_PASS'),
+            'HOST': env('DATABASE_IP'),
+            'PORT': '3306',
+            'OPTIONS' : {
+                'charset' : 'utf8mb4'
+            }
+        },
+    }
 
 
 # Password validation

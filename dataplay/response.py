@@ -24,7 +24,7 @@ def error_response(msg,data):
 
 
 def s_404(reason):
-
+    
     return Response({'error':f'{reason} Does not Exist'},status=status.HTTP_404_NOT_FOUND)
 
 

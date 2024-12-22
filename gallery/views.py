@@ -58,6 +58,9 @@ class CourseFeedBackByCourseAPIView(NewAPIView):
         feedback = CourseFeedback.objects.filter(course=course)
         ser = CourseFeedbackSerializer(feedback,many=True, context={'request':request})
         return s_200(ser)
+    
+
+
 
 
 class OurTeamAPIView(NewAPIView):
