@@ -179,6 +179,14 @@ AUTH_USER_MODEL = 'authentication.User'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://api.dataplay.co.in',
+    'http://api.dataplay.co.in',
+    'https://dataplay.co.in',
+    'http://dataplay.co.in',
+    'https://www.dataplay.co.in',
+    'http://www.dataplay.co.in'
+]
 
 SIMPLE_JWT = {
     'USER_ID_FIELD': 'id',
